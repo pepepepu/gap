@@ -1,70 +1,128 @@
 import React from "react";
-import styled from "styled-components";
 import { Box, Text } from "../../../components";
-
-const PanelContainer = styled.main`
-  width: 70%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.white};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-`;
-
-interface CanvasAreaProps {
-  $orientation?: "vertical" | "horizontal";
-  $order?: "text-first" | "image-first";
-}
-
-const CanvasArea = styled.div<CanvasAreaProps>`
-  width: 500px;
-  height: 500px;
-  background-color: #ffffff;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: ${({ $orientation, $order }) => {
-    if ($orientation === "horizontal") {
-      return $order === "text-first" ? "row" : "row-reverse";
-    }
-    return $order === "text-first" ? "column" : "column-reverse";
-  }};
-`;
-
-const TextSection = styled.div`
-  height: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.colors.primary};
-  padding: 2rem;
-  overflow: hidden;
-`;
-
-const ImageSection = styled.div`
-  height: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #dddddd;
-  overflow: hidden;
-`;
+import { useCanvasDePrevia } from "../../../hooks/useCanvasDePrevia";
+import {
+  PanelContainer,
+  CanvasArea,
+  TextSection,
+  ImageSection,
+  BackgroundImg,
+  DynamicText,
+  WordWrapper,
+  SeparatorWrapper,
+  SeparatorText,
+  CutoutContainer,
+  CutoutInner,
+  Hole,
+} from "../../../components/molecules/CanvasComponents";
 
 export const PreviewPanel: React.FC = () => {
+  const {
+    orientation,
+    order,
+    format,
+    separator,
+    textSize,
+    bgColor,
+    textColor,
+    shape,
+    size,
+    cutoutPositions,
+    textRef,
+    activeImage,
+    words,
+    imgW,
+    imgH,
+    prefix,
+    suffix,
+    actualQuantity,
+  } = useCanvasDePrevia();
+
   return (
     <PanelContainer>
       <Box display="flex" flexDirection="column" alignItems="center" gap="2rem">
-        <CanvasArea $orientation="vertical" $order="text-first">
-          <TextSection>
-            <Text color="white" size="24px" weight="bold" align="center">
-              A ( ) vida ( ) é ( ) bela
-            </Text>
+        <CanvasArea id="export-canvas" $format={format}>
+          <TextSection
+            $orientation={orientation}
+            $order={order}
+            $bgColor={bgColor}
+          >
+            <DynamicText
+              ref={textRef}
+              $textSize={textSize}
+              $textColor={textColor}
+            >
+              {words.map((word, index) => {
+                const isCutout =
+                  index < words.length - 1 && index < actualQuantity;
+                const hasSeparatorText =
+                  index < words.length - 1 && separator !== "none";
+                const pos = cutoutPositions[index] || { x: 50, y: 50 };
+
+                return (
+                  <React.Fragment key={index}>
+                    <WordWrapper>{word}</WordWrapper>
+                    {index < words.length - 1 && (
+                      <SeparatorWrapper>
+                        {hasSeparatorText && (
+                          <SeparatorText $textColor={textColor}>
+                            {prefix}
+                          </SeparatorText>
+                        )}
+                        {isCutout && activeImage && (
+                          <CutoutContainer $size={size} $shape={shape}>
+                            <CutoutInner
+                              src={activeImage}
+                              alt="cutout"
+                              $imgW={imgW}
+                              $imgH={imgH}
+                              $posX={pos.x}
+                              $posY={pos.y}
+                              $size={size}
+                            />
+                          </CutoutContainer>
+                        )}
+                        {hasSeparatorText && (
+                          <SeparatorText $textColor={textColor}>
+                            {suffix}
+                          </SeparatorText>
+                        )}
+                      </SeparatorWrapper>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </DynamicText>
           </TextSection>
-          <ImageSection>
-            <Text color="textDark" size="14px" align="center">
-              A imagem importada e os recortes vazados ficarão aqui.
-            </Text>
+          <ImageSection $orientation={orientation} $order={order}>
+            {activeImage && (
+              <BackgroundImg src={activeImage} alt="background" />
+            )}
+            {!activeImage && (
+              <Text
+                color="white"
+                size="16px"
+                weight="500"
+                align="center"
+                style={{ zIndex: 1 }}
+              >
+                A imagem aparecerá aqui
+              </Text>
+            )}
+            {activeImage &&
+              Array.from({ length: actualQuantity }).map((_, index) => {
+                const pos = cutoutPositions[index] || { x: 50, y: 50 };
+                return (
+                  <Hole
+                    key={index}
+                    $size={size}
+                    $shape={shape}
+                    $posX={pos.x}
+                    $posY={pos.y}
+                    $bgColor={bgColor}
+                  />
+                );
+              })}
           </ImageSection>
         </CanvasArea>
       </Box>

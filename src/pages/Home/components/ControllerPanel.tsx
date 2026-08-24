@@ -1,66 +1,69 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   PiBoxArrowUpFill,
-  PiSquare,
-  PiRectangle,
-  PiDeviceMobile,
   PiCircle,
-  PiTriangle,
-  PiStar,
-  PiProhibit,
-  PiRows,
   PiColumns,
-  PiTextAa,
+  PiDeviceMobile,
+  PiExportFill,
   PiImage,
+  PiProhibit,
+  PiPuzzlePieceFill,
+  PiRectangle,
+  PiRows,
+  PiSquare,
+  PiStar,
+  PiTextAa,
+  PiTrashFill,
+  PiTriangle,
 } from "react-icons/pi";
-import styled from "styled-components";
 import logo from "../../../assets/images/logomark-blue.png";
 import {
   Box,
   Button,
+  ColorPicker,
   Image,
   LabelInput,
+  PanelContainer,
   SelectionGroup,
   Slider,
   Text,
 } from "../../../components";
+import { usePainelDeControle } from "../../../hooks/usePainelDeControle";
 import { theme } from "../../../styles/theme";
 
-const PanelContainer = styled.aside`
-  width: 400px;
-  height: calc(100dvh - 60px);
-  background-color: ${({ theme }) => theme.colors.white};
-  padding: 2rem;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-  overflow-y: auto;
-  margin: 30px 20px;
-  border-radius: 16px;
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border-radius: 10px;
-  }
-`;
-
 export const ControllerPanel: React.FC = () => {
-  const [text, setText] = useState("");
-  const [format, setFormat] = useState("1x1");
-  const [orientation, setOrientation] = useState("vertical");
-  const [order, setOrder] = useState("text-first");
-  const [separator, setSeparator] = useState("()");
-  const [shape, setShape] = useState("quadrado");
-  const [quantity, setQuantity] = useState(4);
-  const [size, setSize] = useState(50);
-  const [textSize, setTextSize] = useState(32);
+  const {
+    text,
+    format,
+    orientation,
+    order,
+    separator,
+    shape,
+    quantity,
+    size,
+    textSize,
+    bgColor,
+    textColor,
+    previewImage,
+    imageName,
+    maxCutouts,
+    fileInputRef,
+    setText,
+    setFormat,
+    setOrientation,
+    setOrder,
+    setSeparator,
+    setShape,
+    setQuantity,
+    setSize,
+    setTextSize,
+    setBgColor,
+    setTextColor,
+    randomizePositions,
+    handleImageUpload,
+    handleRemoveImage,
+    handleExport,
+  } = usePainelDeControle();
 
   return (
     <PanelContainer>
@@ -69,24 +72,86 @@ export const ControllerPanel: React.FC = () => {
       </Box>
 
       <Box flexDirection="column" gap="1.5rem" display="flex">
-        <Button
-          style={{
-            backgroundColor: "transparent",
-            color: theme.colors.primary,
-            border: `1px solid ${theme.colors.primary}`,
-            borderRadius: "99px",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          <PiBoxArrowUpFill size={"1.2rem"} />
-          <Text style={{ textAlign: "center", fontWeight: 700 }}>
-            Enviar Imagem
-          </Text>
-        </Button>
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleImageUpload}
+        />
+
+        {previewImage ? (
+          <Box display="flex" gap="10px" alignItems="center">
+            <Button
+              onClick={() => fileInputRef.current?.click()}
+              style={{
+                backgroundColor: theme.colors.primary,
+                color: theme.colors.white,
+                border: `1px solid ${theme.colors.primary}`,
+                borderRadius: "99px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+                flex: 1,
+                overflow: "hidden",
+              }}
+            >
+              <PiImage size={"1.2rem"} style={{ flexShrink: 0 }} />
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  maxWidth: "180px",
+                }}
+              >
+                {imageName || "Imagem Selecionada"}
+              </Text>
+            </Button>
+            <Button
+              onClick={handleRemoveImage}
+              style={{
+                backgroundColor: "#c01a11ff",
+                color: theme.colors.white,
+                border: "none",
+                borderRadius: "50%",
+                width: "44px",
+                height: "44px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: 0,
+                flexShrink: 0,
+              }}
+            >
+              <PiTrashFill size={"1.2rem"} />
+            </Button>
+          </Box>
+        ) : (
+          <Button
+            onClick={() => fileInputRef.current?.click()}
+            style={{
+              backgroundColor: "transparent",
+              color: theme.colors.primary,
+              border: `1px solid ${theme.colors.primary}`,
+              borderRadius: "99px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <PiBoxArrowUpFill size={"1.2rem"} />
+            <Text style={{ textAlign: "center", fontWeight: 700 }}>
+              Enviar Imagem
+            </Text>
+          </Button>
+        )}
 
         <LabelInput
           label="Texto da Composição"
@@ -97,6 +162,20 @@ export const ControllerPanel: React.FC = () => {
           maxLength={100}
           borderRadius={"24px"}
         />
+
+        <Box display="flex" gap="1rem">
+          <ColorPicker
+            text={"Cor do fundo"}
+            bgColor={bgColor}
+            setBgColor={setBgColor}
+          />
+
+          <ColorPicker
+            text={"Cor do texto"}
+            bgColor={textColor}
+            setBgColor={setTextColor}
+          />
+        </Box>
 
         <SelectionGroup
           label="Formato de Exportação"
@@ -181,8 +260,8 @@ export const ControllerPanel: React.FC = () => {
         <Slider
           label="Quantidade de Recortes"
           value={quantity}
-          min={1}
-          max={20}
+          min={0}
+          max={maxCutouts}
           onChange={setQuantity}
         />
 
@@ -194,11 +273,66 @@ export const ControllerPanel: React.FC = () => {
           onChange={setSize}
         />
 
-        <Button variant="secondary" fullWidth>
-          Randomizar Posições
+        <Button
+          style={{
+            backgroundColor: theme.colors.primary,
+            color: theme.colors.white,
+            border: `1px solid ${theme.colors.primary}`,
+            borderRadius: "99px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
+            flex: 1,
+            overflow: "hidden",
+          }}
+          onClick={randomizePositions}
+        >
+          <PiPuzzlePieceFill size={"1.2rem"} style={{ flexShrink: 0 }} />
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: 700,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              maxWidth: "180px",
+            }}
+          >
+            Randomizar recortes
+          </Text>
         </Button>
-        <Button variant="primary" fullWidth>
-          Exportar Arte
+        <Button
+          style={{
+            backgroundColor: theme.colors.primary,
+            color: theme.colors.white,
+            border: `1px solid ${theme.colors.primary}`,
+            borderRadius: "99px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
+            flex: 1,
+            overflow: "hidden",
+          }}
+          fullWidth
+          onClick={handleExport}
+        >
+          <PiExportFill size={"1.2rem"} style={{ flexShrink: 0 }} />
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: 700,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              maxWidth: "180px",
+            }}
+          >
+            Exportar arte
+          </Text>
         </Button>
       </Box>
     </PanelContainer>
