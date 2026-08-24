@@ -33,7 +33,7 @@ export function Home() {
   return (
     <Container>
       <ControlsPanel>
-        <Title>Controles Lacuna</Title>
+        <Title>Controles gap</Title>
       </ControlsPanel>
       <PreviewPanel>
         <h1>Preview (70%)</h1>
