@@ -8,22 +8,32 @@ const Container = styled.div`
 
 const ControlsPanel = styled.aside`
   width: 30%;
+  background-color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.white};
   padding: 2rem;
-  border-right: 1px solid #333;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 `;
 
 const PreviewPanel = styled.main`
   width: 70%;
+  background-color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+`;
+
+const Title = styled.h2`
+  color: ${({ theme }) => theme.colors.yellow};
+  margin-bottom: 2rem;
 `;
 
 export function Home() {
   return (
     <Container>
       <ControlsPanel>
-        <h2>Controles Lacuna</h2>
+        <Title>Controles Lacuna</Title>
       </ControlsPanel>
       <PreviewPanel>
         <h1>Preview (70%)</h1>
