@@ -115,8 +115,8 @@ export const ControllerPanel: React.FC = () => {
             <Button
               onClick={handleRemoveImage}
               style={{
-                backgroundColor: "#c01a11ff",
-                color: theme.colors.white,
+                backgroundColor: "transparent",
+                color: theme.colors.primary,
                 border: "none",
                 borderRadius: "50%",
                 width: "44px",
