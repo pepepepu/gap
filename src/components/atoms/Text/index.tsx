@@ -19,6 +19,7 @@ const Text = styled.p<TextProps>`
   color: ${({ theme, color }) => (color ? theme.colors[color] : "inherit")};
   text-align: ${({ align }) => align || "left"};
   margin: ${({ margin }) => margin || "0"};
+  padding: 0;
 `;
 
 export default Text;

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Box, Button, Text } from "../../atoms";
+import { PiMinusCircleFill, PiPlusCircleFill } from "react-icons/pi";
+import { theme } from "../../../styles/theme";
 
 const RangeInput = styled.input`
   flex: 1;
@@ -20,6 +22,8 @@ const RangeInput = styled.input`
     width: 16px;
     border-radius: 50%;
     background: ${({ theme }) => theme.colors.yellow};
+    border: 1px solid;
+    border-color: ${theme.colors.primary}
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -5px;
@@ -52,10 +56,12 @@ const Slider: React.FC<SliderProps> = ({
   };
 
   return (
-    <Box flexDirection="column" gap="0.5rem" display="flex">
+    <Box flexDirection="column" gap="10px" display="flex">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Text color="white">{label}</Text>
-        <Text color="yellow" weight="bold">
+        <Text color="primary" weight="700">
+          {label}
+        </Text>
+        <Text color="primary" weight="500">
           {value}
         </Text>
       </Box>
@@ -63,9 +69,18 @@ const Slider: React.FC<SliderProps> = ({
         <Button
           onClick={handleDecrease}
           variant="secondary"
-          style={{ padding: "0.5rem 1rem" }}
+          style={{
+            height: "40px",
+            width: "40px",
+            padding: 0,
+            margin: 0,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "99px",
+          }}
         >
-          -
+          <PiMinusCircleFill size={"50%"} />
         </Button>
         <RangeInput
           type="range"
@@ -78,9 +93,18 @@ const Slider: React.FC<SliderProps> = ({
         <Button
           onClick={handleIncrease}
           variant="secondary"
-          style={{ padding: "0.5rem 1rem" }}
+          style={{
+            height: "40px",
+            width: "40px",
+            padding: 0,
+            margin: 0,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "99px",
+          }}
         >
-          +
+          <PiPlusCircleFill size={"50%"} />
         </Button>
       </Box>
     </Box>
