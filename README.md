@@ -1,18 +1,18 @@
-# ✨ Lacuna ✨
+# ✨ gap ✨
 
 > _"Onde falta uma palavra, a imagem transborda. Preencha o vazio com a sua própria arte."_
 
-## 🔮 O que é o Lacuna?
+## 🔮 O que é o gap?
 
-Às vezes, o que não é dito carrega o maior dos significados. O espaço em branco, o silêncio, a lacuna. E se você pudesse dar forma a esse vazio?
+Às vezes, o que não é dito carrega o maior dos significados. O espaço em branco, o silêncio, a gap. E se você pudesse dar forma a esse vazio?
 
-**Lacuna** é um laboratório criativo de composição visual. Uma ferramenta que une tipografia e fotografia de uma maneira poética: suas palavras formam o caminho, e recortes geométricos revelam a imagem que pulsa por trás delas.
+**gap** é um laboratório criativo de composição visual. Uma ferramenta que une tipografia e fotografia de uma maneira poética: suas palavras formam o caminho, e recortes geométricos revelam a imagem que pulsa por trás delas.
 
 Não crie apenas posts ou banners. Brinque com o espaço negativo, misture formas, cores e direções, e exporte composições artísticas únicas que contam a sua história através daquilo que você escolhe revelar.
 
 ## 🎨 O que você pode fazer?
 
-Explore as possibilidades visuais que o Lacuna oferece para você:
+Explore as possibilidades visuais que o gap oferece para você:
 
 ### 📐 Controle Espacial
 
@@ -28,7 +28,7 @@ Ajuste a cor do fundo e a cor da tipografia de forma independente, criando contr
 
 ### 📸 Exportação em Alta Qualidade
 
-Quando a composição atingir a frequência certa, um clique basta. O Lacuna une as camadas perfeitamente e exporta a sua arte em alta resolução (PNG), pronta para ser compartilhada com o mundo.
+Quando a composição atingir a frequência certa, um clique basta. O gap une as camadas perfeitamente e exporta a sua arte em alta resolução (PNG), pronta para ser compartilhada com o mundo.
 
 ## 🚀 Por trás da mágica
 
@@ -47,20 +47,20 @@ Simples, criador(a)! Basta seguir os passos para sintonizar a sua própria galer
 
 ```bash
 # Clone o repositório
-git clone https://github.com/pepepepu/lacuna.git
+git clone https://github.com/pepepepu/gap.git
 
 # Entre na pasta
-cd lacuna
+cd gap
 
 # Instale os feitiços (dependências)
 npm install
 
-# Invoque o Lacuna localmente
+# Invoque o gap localmente
 npm run dev
 
 ```
 
-Abra o navegador no endereço indicado (geralmente `localhost:5173` ou `3000`) e... **preencha a lacuna!** 🌠
+Abra o navegador no endereço indicado (geralmente `localhost:5173` ou `3000`) e... **preencha o gap!** 🌠
 
 ## 💌 Bora trocar uma ideia?
 
