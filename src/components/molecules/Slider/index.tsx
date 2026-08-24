@@ -22,8 +22,7 @@ const RangeInput = styled.input`
     width: 16px;
     border-radius: 50%;
     background: ${({ theme }) => theme.colors.yellow};
-    border: 1px solid;
-    border-color: ${theme.colors.primary}
+    border: 2px solid ${theme.colors.primary};
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -5px;

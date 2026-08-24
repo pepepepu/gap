@@ -8,6 +8,10 @@ import {
   PiTriangle,
   PiStar,
   PiProhibit,
+  PiRows,
+  PiColumns,
+  PiTextAa,
+  PiImage,
 } from "react-icons/pi";
 import styled from "styled-components";
 import logo from "../../../assets/images/logomark-blue.png";
@@ -50,6 +54,8 @@ const PanelContainer = styled.aside`
 export const ControllerPanel: React.FC = () => {
   const [text, setText] = useState("");
   const [format, setFormat] = useState("1x1");
+  const [orientation, setOrientation] = useState("vertical");
+  const [order, setOrder] = useState("text-first");
   const [separator, setSeparator] = useState("()");
   const [shape, setShape] = useState("quadrado");
   const [quantity, setQuantity] = useState(4);
@@ -100,6 +106,38 @@ export const ControllerPanel: React.FC = () => {
             { label: "1x1", value: "1x1", symbolIcon: <PiSquare /> },
             { label: "9:16", value: "9:16", symbolIcon: <PiDeviceMobile /> },
             { label: "16:9", value: "16:9", symbolIcon: <PiRectangle /> },
+          ]}
+        />
+
+        <SelectionGroup
+          label="Orientação"
+          value={orientation}
+          onChange={setOrientation}
+          options={[
+            { label: "Vertical", value: "vertical", symbolIcon: <PiRows /> },
+            {
+              label: "Horizontal",
+              value: "horizontal",
+              symbolIcon: <PiColumns />,
+            },
+          ]}
+        />
+
+        <SelectionGroup
+          label="Ordem"
+          value={order}
+          onChange={setOrder}
+          options={[
+            {
+              label: "Texto 1º",
+              value: "text-first",
+              symbolIcon: <PiTextAa />,
+            },
+            {
+              label: "Imagem 1º",
+              value: "image-first",
+              symbolIcon: <PiImage />,
+            },
           ]}
         />
 
