@@ -236,7 +236,7 @@ export const ScaleWrapper = styled.div<{ $w: number; $h: number }>`
 
 export const DrawerContainer = styled.aside`
   width: 100vw;
-  height: 40dvh;
+  height: 35dvh;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.08);
   display: flex;
