@@ -209,3 +209,109 @@ export const Hole = styled.div<{
     return "border-radius: 0;";
   }}
 `;
+
+export const PanelMobile = styled.main`
+  flex: 1;
+  width: 100%;
+  background-color: #f8f9fa;
+  background-image: radial-gradient(#d5d5d5 1px, transparent 1px);
+  background-size: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+`;
+
+export const ScaleWrapper = styled.div<{ $w: number; $h: number }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(
+    calc(min(85vw / ${({ $w }) => $w}, 50vh / ${({ $h }) => $h}))
+  );
+  transform-origin: center center;
+  transition: transform 0.3s ease;
+`;
+
+export const DrawerContainer = styled.aside`
+  width: 100vw;
+  height: 30dvh;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+`;
+
+export const DrawerHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+`;
+
+export const DrawerBody = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.5rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 1rem));
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.primary};
+    border-radius: 10px;
+  }
+`;
+
+export const MainMenuRow = styled.div`
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+`;
+
+export const MenuButton = styled.button`
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: ${({ theme }) => theme.colors.primary};
+  min-width: 64px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s ease;
+
+  &:active {
+    opacity: 0.6;
+  }
+`;
+
+export const IconCircle = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f5f7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 1px solid #e0e5ff;
+`;

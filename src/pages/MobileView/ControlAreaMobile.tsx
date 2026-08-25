@@ -21,7 +21,6 @@ import {
   PiTextAa,
   PiTriangle,
 } from "react-icons/pi";
-import styled from "styled-components";
 import {
   Box,
   Button,
@@ -31,90 +30,16 @@ import {
   Slider,
   Text,
 } from "../../components";
+import {
+  DrawerBody,
+  DrawerContainer,
+  DrawerHeader,
+  IconCircle,
+  MainMenuRow,
+  MenuButton,
+} from "../../components/molecules/CanvasComponents";
 import { usePainelDeControle } from "../../hooks/usePainelDeControle";
 import { theme } from "../../styles/theme";
-
-const DrawerContainer = styled.aside`
-  width: 100vw;
-  height: 30dvh;
-  background-color: ${({ theme }) => theme.colors.white};
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
-  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  z-index: 20;
-`;
-
-const DrawerHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #f0f0f0;
-`;
-
-const DrawerBody = styled.div`
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 1.5rem;
-  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 1rem));
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border-radius: 10px;
-  }
-`;
-
-const MainMenuRow = styled.div`
-  display: flex;
-  overflow-x: auto;
-  gap: 1.5rem;
-  padding-bottom: 1rem;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  scrollbar-width: none;
-`;
-
-const MenuButton = styled.button`
-  background: transparent;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: ${({ theme }) => theme.colors.primary};
-  min-width: 64px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.2s ease;
-
-  &:active {
-    opacity: 0.6;
-  }
-`;
-
-const IconCircle = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #f5f7ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  border: 1px solid #e0e5ff;
-`;
 
 type MenuType =
   | "text"

@@ -1,45 +1,22 @@
 import React from "react";
-import styled from "styled-components";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { Text } from "../../components";
-import { useCanvasDePrevia } from "../../hooks/useCanvasDePrevia";
 import {
-  CanvasArea,
-  TextSection,
-  ImageSection,
   BackgroundImg,
-  DynamicText,
-  WordWrapper,
-  SeparatorWrapper,
-  SeparatorText,
+  CanvasArea,
   CutoutContainer,
   CutoutInner,
+  DynamicText,
   Hole,
+  ImageSection,
+  PanelMobile,
+  ScaleWrapper,
+  SeparatorText,
+  SeparatorWrapper,
+  TextSection,
+  WordWrapper,
 } from "../../components/molecules/CanvasComponents";
-
-const PanelMobile = styled.main`
-  flex: 1;
-  width: 100%;
-  background-color: #f8f9fa;
-  background-image: radial-gradient(#d5d5d5 1px, transparent 1px);
-  background-size: 20px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-`;
-
-const ScaleWrapper = styled.div<{ $w: number; $h: number }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: scale(
-    calc(min(85vw / ${({ $w }) => $w}, 50vh / ${({ $h }) => $h}))
-  );
-  transform-origin: center center;
-  transition: transform 0.3s ease;
-`;
+import { useCanvasDePrevia } from "../../hooks/useCanvasDePrevia";
 
 export const PreviewAreaMobile: React.FC = () => {
   const {
@@ -69,7 +46,7 @@ export const PreviewAreaMobile: React.FC = () => {
   return (
     <PanelMobile>
       <TransformWrapper
-        initialScale={0.65}
+        initialScale={0.5}
         minScale={0.5}
         maxScale={4}
         centerOnInit={true}
