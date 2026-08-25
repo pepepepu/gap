@@ -14,9 +14,9 @@ interface SelectProps {
   width?: string;
 }
 
-const SelectContainer = styled.div<{ width?: string }>`
+const SelectContainer = styled.div<{ $width?: string }>`
   position: relative;
-  width: ${({ width }) => width || "100%"};
+  width: ${({ $width }) => $width || "100%"};
 `;
 
 const SelectTrigger = styled.div`
@@ -47,21 +47,20 @@ const DropdownList = styled.ul`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 `;
 
-const DropdownItem = styled.li<{ isSelected: boolean }>`
+const DropdownItem = styled.li<{ $isSelected: boolean }>`
   padding: 0.75rem 1rem;
   cursor: pointer;
   font-family: ${({ theme }) => theme.fonts.body};
   font-size: 1rem;
-  color: ${({ theme, isSelected }) =>
-    isSelected ? theme.colors.white : theme.colors.textDark};
-  background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.colors.primary : "transparent"};
-
+  color: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.colors.white : theme.colors.textDark};
+  background-color: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.colors.primary : "transparent"};
   &:hover {
-    background-color: ${({ theme, isSelected }) =>
-      isSelected ? theme.colors.primary : theme.colors.yellow};
-    color: ${({ theme, isSelected }) =>
-      isSelected ? theme.colors.white : theme.colors.textDark};
+    background-color: ${({ theme, $isSelected }) =>
+      $isSelected ? theme.colors.primary : theme.colors.yellow};
+    color: ${({ theme, $isSelected }) =>
+      $isSelected ? theme.colors.white : theme.colors.textDark};
   }
 `;
 
@@ -74,7 +73,6 @@ const Select: React.FC<SelectProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-
   const selectedOption = options.find((opt) => opt.value === value);
 
   useEffect(() => {
@@ -86,7 +84,6 @@ const Select: React.FC<SelectProps> = ({
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -94,17 +91,17 @@ const Select: React.FC<SelectProps> = ({
   }, []);
 
   return (
-    <SelectContainer width={width} ref={containerRef}>
+    <SelectContainer $width={width} ref={containerRef}>
       <SelectTrigger onClick={() => setIsOpen(!isOpen)}>
         {selectedOption ? selectedOption.label : placeholder}
-        <span>▼</span>
+        <span> </span>
       </SelectTrigger>
       {isOpen && (
         <DropdownList>
           {options.map((option) => (
             <DropdownItem
               key={option.value}
-              isSelected={option.value === value}
+              $isSelected={option.value === value}
               onClick={() => {
                 onChange(option.value);
                 setIsOpen(false);
