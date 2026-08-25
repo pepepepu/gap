@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { toPng } from "html-to-image";
+import { toBlob } from "html-to-image";
 import { useLacunaStore } from "../store/useLacunaStore";
 
 export const usePainelDeControle = () => {
@@ -76,16 +76,25 @@ export const usePainelDeControle = () => {
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     try {
-      const dataUrl = await toPng(node, {
+      const blob = await toBlob(node, {
         cacheBust: true,
         pixelRatio: 3,
       });
+
+      if (!blob) return;
+
+      const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.download = "gap.png";
-      link.href = dataUrl;
+
+      link.download = "gap_.png";
+      link.href = url;
+
+      document.body.appendChild(link);
       link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     } catch (err) {
-      console.error(err);
     } finally {
       setIsExporting(false);
     }
