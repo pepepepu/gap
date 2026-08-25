@@ -50,13 +50,40 @@ export const usePainelDeControle = () => {
     if (file) {
       const previewUrl = URL.createObjectURL(file);
 
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setImage(previewUrl, event.target.result as string, file.name);
+      const img = new window.Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_SIZE = 1200;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_SIZE) {
+            height *= MAX_SIZE / width;
+            width = MAX_SIZE;
+          }
+        } else {
+          if (height > MAX_SIZE) {
+            width *= MAX_SIZE / height;
+            height = MAX_SIZE;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const mimeType =
+            file.type === "image/png" ? "image/png" : "image/jpeg";
+          const quality = mimeType === "image/jpeg" ? 0.85 : undefined;
+          const base64Url = canvas.toDataURL(mimeType, quality);
+
+          setImage(previewUrl, base64Url, file.name);
         }
       };
-      reader.readAsDataURL(file);
+      img.src = previewUrl;
     }
   };
 
