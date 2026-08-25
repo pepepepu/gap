@@ -56,7 +56,7 @@ export const MobileView: React.FC = () => {
               onClick={() => fileInputRef.current?.click()}
               style={{
                 backgroundColor: theme.colors.primary,
-                color: theme.colors.primary,
+                color: theme.colors.white,
                 border: "none",
                 borderRadius: "99px",
                 display: "flex",
@@ -83,8 +83,8 @@ export const MobileView: React.FC = () => {
               onClick={handleRemoveImage}
               style={{
                 backgroundColor: "transparent",
-                color: theme.colors.white,
-                border: "none",
+                color: theme.colors.primary,
+                border: `1px solid ${theme.colors.primary}`,
                 borderRadius: "50%",
                 width: "36px",
                 height: "36px",
