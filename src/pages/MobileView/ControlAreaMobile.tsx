@@ -12,10 +12,10 @@ import {
   PiLayout,
   PiPalette,
   PiProhibit,
-  PiPuzzlePieceFill,
   PiRectangle,
   PiRows,
   PiScissors,
+  PiShuffle,
   PiSquare,
   PiStar,
   PiTextAa,
@@ -468,7 +468,7 @@ export const ControlAreaMobile: React.FC = () => {
               padding: 0,
             }}
           >
-            <PiPuzzlePieceFill size="1.2rem" />
+            <PiShuffle size="1.2rem" />
           </Button>
 
           <Button

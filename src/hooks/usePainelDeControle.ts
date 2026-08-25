@@ -90,19 +90,31 @@ export const usePainelDeControle = () => {
         return;
       }
 
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64data = reader.result;
-        if (typeof base64data === "string") {
-          const newTab = window.open();
-          if (newTab) {
-            newTab.document.body.innerHTML = `<img src="${base64data}" style="max-width: 100%; height: auto;" alt="seu gap"/>`;
-            newTab.document.title = "seu gap";
-          }
-        }
-      };
+      const fileName = "gap.png";
 
-      reader.readAsDataURL(blob);
+      if (
+        navigator.canShare &&
+        navigator.canShare({
+          files: [new File([blob], fileName, { type: blob.type })],
+        })
+      ) {
+        const file = new File([blob], fileName, { type: blob.type });
+
+        await navigator.share({
+          files: [file],
+          title: "seu gap",
+          text: "confira a arte que criei no gap.",
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = fileName;
+        link.href = url;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
     } catch (err) {
     } finally {
       setIsExporting(false);

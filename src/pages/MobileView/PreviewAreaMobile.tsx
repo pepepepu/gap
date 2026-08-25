@@ -69,7 +69,7 @@ export const PreviewAreaMobile: React.FC = () => {
   return (
     <PanelMobile>
       <TransformWrapper
-        initialScale={1}
+        initialScale={0.65}
         minScale={0.5}
         maxScale={4}
         centerOnInit={true}
