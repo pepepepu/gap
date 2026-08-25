@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { toBlob } from "html-to-image";
+import { toPng } from "html-to-image";
 import { useLacunaStore } from "../store/useLacunaStore";
 
 export const usePainelDeControle = () => {
@@ -73,7 +73,7 @@ export const usePainelDeControle = () => {
 
     setIsExporting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 350));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {
       const options = {
@@ -81,39 +81,47 @@ export const usePainelDeControle = () => {
         pixelRatio: 3,
         quality: 1,
       };
-      await toBlob(node, options);
 
-      const blob = await toBlob(node, options);
+      await toPng(node, options);
+      const dataUrl = await toPng(node, options);
 
-      if (!blob) {
+      if (!dataUrl) {
         setIsExporting(false);
         return;
       }
 
-      const fileName = "gap.png";
+      const isIOS =
+        /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-      if (
-        navigator.canShare &&
-        navigator.canShare({
-          files: [new File([blob], fileName, { type: blob.type })],
-        })
-      ) {
-        const file = new File([blob], fileName, { type: blob.type });
-
-        await navigator.share({
-          files: [file],
-          title: "seu gap",
-          text: "confira a arte que criei no gap.",
-        });
+      if (isIOS) {
+        const newWindow = window.open();
+        if (newWindow) {
+          newWindow.document.write(`
+            <html>
+              <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+                <title>Salvar Arte</title>
+              </head>
+              <body style="margin: 0; background-color: #f0f0f0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
+                <img src="${dataUrl}" style="max-width: 90%; max-height: 80vh; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);" />
+                <p style="margin-top: 20px; font-weight: 600; color: #333; text-align: center; padding: 0 20px;">
+                  Pressione e segure a imagem para salvar.
+                </p>
+              </body>
+            </html>
+          `);
+          newWindow.document.close();
+        } else {
+          window.location.href = dataUrl;
+        }
       } else {
-        const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
-        link.download = fileName;
-        link.href = url;
+        link.download = "lacuna.png";
+        link.href = dataUrl;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        URL.revokeObjectURL(url);
       }
     } catch (err) {
     } finally {
