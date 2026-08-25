@@ -50,40 +50,13 @@ export const usePainelDeControle = () => {
     if (file) {
       const previewUrl = URL.createObjectURL(file);
 
-      const img = new window.Image();
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const MAX_SIZE = 1200;
-        let width = img.width;
-        let height = img.height;
-
-        if (width > height) {
-          if (width > MAX_SIZE) {
-            height *= MAX_SIZE / width;
-            width = MAX_SIZE;
-          }
-        } else {
-          if (height > MAX_SIZE) {
-            width *= MAX_SIZE / height;
-            height = MAX_SIZE;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
-
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, width, height);
-          const mimeType =
-            file.type === "image/png" ? "image/png" : "image/jpeg";
-          const quality = mimeType === "image/jpeg" ? 0.85 : undefined;
-          const base64Url = canvas.toDataURL(mimeType, quality);
-
-          setImage(previewUrl, base64Url, file.name);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setImage(previewUrl, event.target.result as string, file.name);
         }
       };
-      img.src = previewUrl;
+      reader.readAsDataURL(file);
     }
   };
 
@@ -100,16 +73,22 @@ export const usePainelDeControle = () => {
 
     setIsExporting(true);
 
+    // Tempo extra para garantir que o DOM mobile se estabilize antes da captura
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {
       const options = {
         cacheBust: true,
-        pixelRatio: 3,
+        pixelRatio: 3, // Alta qualidade
         quality: 1,
       };
 
+      // --- MÉTODO: Double-Capture (Warm-up) para Safari/iOS ---
+      // html-to-image as vezes precisa de um render 'quente' no Safari
+      // para pintar os recursos externos (como a imagem upada) corretamente.
       await toPng(node, options);
+
+      // Captura real
       const dataUrl = await toPng(node, options);
 
       if (!dataUrl) {
@@ -117,11 +96,15 @@ export const usePainelDeControle = () => {
         return;
       }
 
+      // Detecção direta de iOS/Safari
       const isIOS =
         /iPad|iPhone|iPod/.test(navigator.userAgent) ||
         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
       if (isIOS) {
+        // --- MÉTODO: New Tab Fallback (iOS Robust Method) ---
+        // Safari bloqueia downloads diretos de Blobs/DataURLs.
+        // Abrimos em uma nova guia com instruções para salvar nativamente.
         const newWindow = window.open();
         if (newWindow) {
           newWindow.document.write(`
@@ -140,9 +123,11 @@ export const usePainelDeControle = () => {
           `);
           newWindow.document.close();
         } else {
+          // Se o bloqueador de popup estiver ativo, tentamos abrir na mesma guia
           window.location.href = dataUrl;
         }
       } else {
+        // Download padrão para Desktop/Android
         const link = document.createElement("a");
         link.download = "lacuna.png";
         link.href = dataUrl;
@@ -151,6 +136,7 @@ export const usePainelDeControle = () => {
         document.body.removeChild(link);
       }
     } catch (err) {
+      // Captura de erro silenciosa (sem consoles)
     } finally {
       setIsExporting(false);
     }
