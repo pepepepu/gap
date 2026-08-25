@@ -28,7 +28,7 @@ export const CanvasArea = styled.div<CanvasAreaProps>`
     if ($format === "16:9") return "360px";
     return "500px";
   }};
-  background-color: #ffffff;
+  background-color: ${theme.colors.white};
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   overflow: hidden;

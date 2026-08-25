@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Text } from "../../../components";
-import { useCanvasDePrevia } from "../../../hooks/useCanvasDePrevia";
+import { Box, Text } from "../../components";
+import { useCanvasDePrevia } from "../../hooks/useCanvasDePrevia";
 import {
   PanelContainer,
   CanvasArea,
@@ -14,9 +14,9 @@ import {
   CutoutContainer,
   CutoutInner,
   Hole,
-} from "../../../components/molecules/CanvasComponents";
+} from "../../components/molecules/CanvasComponents";
 
-export const PreviewPanel: React.FC = () => {
+export const PreviewAreaDesktop: React.FC = () => {
   const {
     orientation,
     order,

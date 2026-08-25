@@ -16,7 +16,7 @@ import {
   PiTrashFill,
   PiTriangle,
 } from "react-icons/pi";
-import logo from "../../../assets/images/logomark-blue.png";
+import logo from "../../assets/images/logomark-blue.png";
 import {
   Box,
   Button,
@@ -27,11 +27,11 @@ import {
   SelectionGroup,
   Slider,
   Text,
-} from "../../../components";
-import { usePainelDeControle } from "../../../hooks/usePainelDeControle";
-import { theme } from "../../../styles/theme";
+} from "../../components";
+import { usePainelDeControle } from "../../hooks/usePainelDeControle";
+import { theme } from "../../styles/theme";
 
-export const ControllerPanel: React.FC = () => {
+export const ControlAreaDesktop: React.FC = () => {
   const {
     text,
     format,
@@ -178,7 +178,7 @@ export const ControllerPanel: React.FC = () => {
         </Box>
 
         <SelectionGroup
-          label="Formato de Exportação"
+          label="Formato da imagem"
           value={format}
           onChange={setFormat}
           options={[
@@ -189,7 +189,7 @@ export const ControllerPanel: React.FC = () => {
         />
 
         <SelectionGroup
-          label="Orientação"
+          label="Orientação dos blocos"
           value={orientation}
           onChange={setOrientation}
           options={[
@@ -203,7 +203,7 @@ export const ControllerPanel: React.FC = () => {
         />
 
         <SelectionGroup
-          label="Ordem"
+          label="Ordem de exibição"
           value={order}
           onChange={setOrder}
           options={[

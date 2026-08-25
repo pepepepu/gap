@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { ControllerPanel } from "./components/ControllerPanel";
-import { PreviewPanel } from "./components/PreviewPanel";
 import { theme } from "../../styles/theme";
+import { PreviewAreaDesktop } from "./PreviewAreaDesktop";
+import { ControlAreaDesktop } from "./ControlAreaDesktop";
 
 const Container = styled.div`
   display: flex;
@@ -11,11 +11,11 @@ const Container = styled.div`
   background-color: ${theme.colors.white};
 `;
 
-export function Home() {
+export function DesktopView() {
   return (
     <Container>
-      <ControllerPanel />
-      <PreviewPanel />
+      <ControlAreaDesktop />
+      <PreviewAreaDesktop />
     </Container>
   );
 }
