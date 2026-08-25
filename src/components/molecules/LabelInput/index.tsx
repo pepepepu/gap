@@ -41,7 +41,7 @@ const LabelInput: React.FC<LabelInputProps> = ({
       <Input
         width="100%"
         as={isTextArea ? "textarea" : "input"}
-        rows={isTextArea ? lines : undefined}
+        rows={isTextArea ? lines : 1}
         customBorderColor={borderColor}
         customBorderRadius={borderRadius}
         maxLength={maxLength}

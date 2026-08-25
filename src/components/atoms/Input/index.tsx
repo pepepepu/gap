@@ -1,13 +1,12 @@
-import React from "react";
 import styled, { type DefaultTheme } from "styled-components";
+import React from "react";
 
-interface InputProps extends React.InputHTMLAttributes<
-  HTMLInputElement | HTMLTextAreaElement
-> {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   width?: string;
   customBorderColor?: keyof DefaultTheme["colors"] | string;
   customBorderRadius?: string;
   as?: "input" | "textarea";
+  rows?: number;
 }
 
 const StyledInput = styled.input<any>`
