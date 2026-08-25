@@ -73,27 +73,36 @@ export const usePainelDeControle = () => {
 
     setIsExporting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 350));
 
     try {
-      const blob = await toBlob(node, {
+      const options = {
         cacheBust: true,
         pixelRatio: 3,
-      });
+        quality: 1,
+      };
+      await toBlob(node, options);
 
-      if (!blob) return;
+      const blob = await toBlob(node, options);
 
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
+      if (!blob) {
+        setIsExporting(false);
+        return;
+      }
 
-      link.download = "gap_.png";
-      link.href = url;
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        if (typeof base64data === "string") {
+          const newTab = window.open();
+          if (newTab) {
+            newTab.document.body.innerHTML = `<img src="${base64data}" style="max-width: 100%; height: auto;" alt="seu gap"/>`;
+            newTab.document.title = "seu gap";
+          }
+        }
+      };
 
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      reader.readAsDataURL(blob);
     } catch (err) {
     } finally {
       setIsExporting(false);
