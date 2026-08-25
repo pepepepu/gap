@@ -53,8 +53,6 @@ export const usePainelDeControle = () => {
       const img = new window.Image();
       img.onload = () => {
         const canvas = document.createElement("canvas");
-
-        // Redução extrema para garantir que o Safari não congele
         const MAX_SIZE = 800;
         let width = img.width;
         let height = img.height;
@@ -77,9 +75,7 @@ export const usePainelDeControle = () => {
 
         if (ctx) {
           ctx.drawImage(img, 0, 0, width, height);
-          // Forçando JPEG em 70% de qualidade. O tamanho do Base64 fica minúsculo e o iOS aceita!
           const base64Url = canvas.toDataURL("image/jpeg", 0.7);
-
           setImage(previewUrl, base64Url, file.name);
         }
       };
@@ -103,9 +99,24 @@ export const usePainelDeControle = () => {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {
+      const images = Array.from(node.querySelectorAll("img"));
+      await Promise.all(
+        images.map((img) => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve;
+          });
+        }),
+      );
+
       const options = {
-        cacheBust: true,
         pixelRatio: 3,
+        skipFonts: false,
+        style: {
+          transform: "scale(1)",
+          transformOrigin: "top left",
+        },
       };
 
       await toPng(node, options).catch(() => {});
@@ -122,25 +133,43 @@ export const usePainelDeControle = () => {
         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
       if (isIOS) {
-        const newWindow = window.open();
-        if (newWindow) {
-          newWindow.document.write(`
-            <html>
-              <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-                <title>Salvar Arte</title>
-              </head>
-              <body style="margin: 0; background-color: #f0f0f0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
-                <img src="${dataUrl}" style="max-width: 90%; max-height: 80vh; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);" />
-                <p style="margin-top: 20px; font-weight: 600; color: #333; text-align: center; padding: 0 20px; font-family: sans-serif;">
-                  Pressione e segure a imagem para salvar.
-                </p>
-              </body>
-            </html>
-          `);
-          newWindow.document.close();
-        } else {
-          window.location.href = dataUrl;
+        const overlay = document.createElement("div");
+        overlay.id = "ios-export-overlay";
+        overlay.style.position = "fixed";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100vw";
+        overlay.style.height = "100vh";
+        overlay.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+        overlay.style.zIndex = "99999";
+        overlay.style.display = "flex";
+        overlay.style.flexDirection = "column";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.backdropFilter = "blur(5px)";
+        overlay.style.opacity = "0";
+        overlay.style.transition = "opacity 0.3s ease";
+
+        overlay.innerHTML = `
+          <div id="close-ios-overlay" style="position: absolute; top: 20px; right: 20px; color: white; font-size: 40px; font-family: sans-serif; cursor: pointer; padding: 10px; line-height: 1;">&times;</div>
+          <img src="${dataUrl}" style="max-width: 85%; max-height: 70vh; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);" />
+          <p style="margin-top: 24px; color: white; font-weight: 600; font-family: sans-serif; text-align: center; max-width: 80%;">
+            Pressione e segure a imagem acima para salvar em suas Fotos.
+          </p>
+        `;
+
+        document.body.appendChild(overlay);
+
+        requestAnimationFrame(() => {
+          overlay.style.opacity = "1";
+        });
+
+        const closeBtn = document.getElementById("close-ios-overlay");
+        if (closeBtn) {
+          closeBtn.addEventListener("click", () => {
+            overlay.style.opacity = "0";
+            setTimeout(() => document.body.removeChild(overlay), 300);
+          });
         }
       } else {
         const link = document.createElement("a");
