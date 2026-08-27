@@ -173,7 +173,7 @@ export const usePainelDeControle = () => {
     style="
       max-width: 85%;
       max-height: 70vh;
-      border-radius: 12px;
+      border-radius: 0px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     "
   />
@@ -186,6 +186,7 @@ export const usePainelDeControle = () => {
       font-family: 'Google Sans Code', monospace;
       text-align: center;
       max-width: 80%;
+      line-height: 110%;
     "
   >
     Pressione e segure a imagem acima para salvar em suas Fotos.
