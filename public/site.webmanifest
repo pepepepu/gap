@@ -1,5 +1,5 @@
 {
-  "name": "gap - fill the space",
+  "name": "gap",
   "short_name": "gap",
   "icons": [
     {
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#324f97",
-  "background_color": "#324f97",
+  "theme_color": "#1500ff",
+  "background_color": "#ffffff",
   "display": "standalone"
 }
