@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Box, Button, Image, Text } from "../../components";
 import { PiBoxArrowUpFill, PiImage, PiTrashFill } from "react-icons/pi";
-import logo from "../../assets/images/logomark-blue.png";
+import logo from "../../assets/images/logomark02.png";
 import { usePainelDeControle } from "../../hooks/usePainelDeControle";
 import { theme } from "../../styles/theme";
 import { PreviewAreaMobile } from "./PreviewAreaMobile";
@@ -23,7 +23,7 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 1.5rem;
-  background-color: ${theme.colors.white};
+  background-color: ${theme.colors.blue};
   border-bottom: 1px solid #f0f0f0;
   z-index: 10;
 `;
@@ -40,7 +40,7 @@ export const MobileView: React.FC = () => {
   return (
     <Container>
       <Header>
-        <Image src={logo} width="40px" alt="gap-logo" objectFit="contain" />
+        <Image src={logo} width="80px" alt="gap-logo" objectFit="contain" />
 
         <input
           type="file"
@@ -55,10 +55,10 @@ export const MobileView: React.FC = () => {
             <Button
               onClick={() => fileInputRef.current?.click()}
               style={{
-                backgroundColor: theme.colors.primary,
-                color: theme.colors.white,
+                backgroundColor: theme.colors.white,
+                color: theme.colors.blue,
                 border: "none",
-                borderRadius: "99px",
+                borderRadius: "0px",
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
@@ -83,9 +83,9 @@ export const MobileView: React.FC = () => {
               onClick={handleRemoveImage}
               style={{
                 backgroundColor: "transparent",
-                color: theme.colors.primary,
-                border: `1px solid ${theme.colors.primary}`,
-                borderRadius: "50%",
+                color: theme.colors.white,
+                border: `2px solid ${theme.colors.white}`,
+                borderRadius: "0px",
                 width: "36px",
                 height: "36px",
                 display: "flex",
@@ -102,9 +102,9 @@ export const MobileView: React.FC = () => {
             onClick={() => fileInputRef.current?.click()}
             style={{
               backgroundColor: "transparent",
-              color: theme.colors.primary,
-              border: `1px solid ${theme.colors.primary}`,
-              borderRadius: "99px",
+              color: theme.colors.white,
+              border: `2px solid ${theme.colors.white}`,
+              borderRadius: "0px",
               display: "flex",
               alignItems: "center",
               gap: "6px",

@@ -17,7 +17,7 @@ interface LabelInputProps extends React.InputHTMLAttributes<
 const LabelInput: React.FC<LabelInputProps> = ({
   label,
   width,
-  labelColor = "primary",
+  labelColor = "white",
   borderColor,
   borderRadius,
   lines = 1,
@@ -29,11 +29,15 @@ const LabelInput: React.FC<LabelInputProps> = ({
   return (
     <Box flexDirection="column" gap="15px" display="flex" width={width}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Text color={labelColor} weight="700">
+        <Text
+          color={labelColor}
+          weight="600"
+          style={{ letterSpacing: "-0.7px" }}
+        >
           {label}
         </Text>
         {maxLength && (
-          <Text color="primary" size="0.8rem">
+          <Text color="yelloww" size="0.8rem">
             Max: {maxLength}
           </Text>
         )}

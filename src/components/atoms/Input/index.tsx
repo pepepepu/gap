@@ -12,17 +12,17 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const StyledInput = styled.input<any>`
   width: ${({ $width }) => $width || "100%"};
   padding: 0.75rem 1rem;
-  border-radius: ${({ $customBorderRadius }) => $customBorderRadius || "8px"};
-  border: 1px solid
+  border-radius: ${({ $customBorderRadius }) => $customBorderRadius || "0px"};
+  border: 2px solid
     ${({ theme, $customBorderColor }) =>
       $customBorderColor
         ? theme.colors[$customBorderColor as keyof DefaultTheme["colors"]] ||
           $customBorderColor
         : theme.colors.primary};
-  background-color: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.textDark};
+  background-color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.yelloww};
   font-family: ${({ theme }) => theme.fonts.body};
-  font-size: 1rem;
+  font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s ease;
   resize: ${({ as }) => (as === "textarea" ? "vertical" : "none")};
@@ -30,8 +30,9 @@ const StyledInput = styled.input<any>`
     border-color: ${({ theme }) => theme.colors.secondary};
   }
   &::placeholder {
-    color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.white};
     opacity: 0.7;
+    font-style: italic;
   }
 `;
 

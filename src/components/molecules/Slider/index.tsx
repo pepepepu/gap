@@ -1,8 +1,8 @@
 import React from "react";
+import { PiMinusBold, PiPlusBold } from "react-icons/pi";
 import styled from "styled-components";
-import { Box, Button, Text } from "../../atoms";
-import { PiMinusCircleFill, PiPlusCircleFill } from "react-icons/pi";
 import { theme } from "../../../styles/theme";
+import { Box, Button, Text } from "../../atoms";
 
 const RangeInput = styled.input`
   flex: 1;
@@ -11,21 +11,21 @@ const RangeInput = styled.input`
 
   &::-webkit-slider-runnable-track {
     width: 100%;
-    height: 6px;
+    height: 4px;
     cursor: pointer;
-    background: ${({ theme }) => theme.colors.primary};
-    border-radius: 4px;
+    background: ${({ theme }) => theme.colors.white};
+    border-radius: 0px;
   }
 
   &::-webkit-slider-thumb {
     height: 16px;
     width: 16px;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.colors.yellow};
-    border: 2px solid ${theme.colors.primary};
+    border-radius: 0%;
+    background: ${({ theme }) => theme.colors.red};
+    border: 2px solid ${theme.colors.red};
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -5px;
+    margin-top: -6px;
   }
 `;
 
@@ -57,10 +57,10 @@ const Slider: React.FC<SliderProps> = ({
   return (
     <Box flexDirection="column" gap="10px" display="flex">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Text color="primary" weight="700">
+        <Text color="white" weight="600" style={{ letterSpacing: "-0.7px" }}>
           {label}
         </Text>
-        <Text color="primary" weight="500">
+        <Text color="white" weight="600" style={{ letterSpacing: "-0.7px" }}>
           {value}
         </Text>
       </Box>
@@ -69,17 +69,17 @@ const Slider: React.FC<SliderProps> = ({
           onClick={handleDecrease}
           variant="secondary"
           style={{
-            height: "40px",
-            width: "40px",
+            height: "35px",
+            width: "35px",
             padding: 0,
             margin: 0,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: "99px",
+            borderRadius: "0px",
           }}
         >
-          <PiMinusCircleFill size={"50%"} />
+          <PiMinusBold size={"45%"} />
         </Button>
         <RangeInput
           type="range"
@@ -93,17 +93,17 @@ const Slider: React.FC<SliderProps> = ({
           onClick={handleIncrease}
           variant="secondary"
           style={{
-            height: "40px",
-            width: "40px",
+            height: "35px",
+            width: "35px",
             padding: 0,
             margin: 0,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: "99px",
+            borderRadius: "0px",
           }}
         >
-          <PiPlusCircleFill size={"50%"} />
+          <PiPlusBold size={"45%"} />
         </Button>
       </Box>
     </Box>

@@ -6,6 +6,7 @@ import {
   PiDeviceMobile,
   PiExportFill,
   PiImage,
+  PiImageFill,
   PiProhibit,
   PiPuzzlePieceFill,
   PiRectangle,
@@ -16,7 +17,7 @@ import {
   PiTrashFill,
   PiTriangle,
 } from "react-icons/pi";
-import logo from "../../assets/images/logomark-blue.png";
+import logo from "../../assets/images/logomark02.png";
 import {
   Box,
   Button,
@@ -85,10 +86,10 @@ export const ControlAreaDesktop: React.FC = () => {
             <Button
               onClick={() => fileInputRef.current?.click()}
               style={{
-                backgroundColor: theme.colors.primary,
-                color: theme.colors.white,
-                border: `1px solid ${theme.colors.primary}`,
-                borderRadius: "99px",
+                backgroundColor: theme.colors.green,
+                color: theme.colors.black,
+                border: `1px solid ${theme.colors.green}`,
+                borderRadius: "0px",
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "center",
@@ -98,15 +99,16 @@ export const ControlAreaDesktop: React.FC = () => {
                 overflow: "hidden",
               }}
             >
-              <PiImage size={"1.2rem"} style={{ flexShrink: 0 }} />
+              <PiImageFill size={"1.2rem"} style={{ flexShrink: 0 }} />
               <Text
                 style={{
                   textAlign: "center",
-                  fontWeight: 700,
+                  fontWeight: 500,
                   whiteSpace: "nowrap",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   maxWidth: "180px",
+                  letterSpacing: "-0.7PX",
                 }}
               >
                 {imageName || "Imagem Selecionada"}
@@ -115,10 +117,10 @@ export const ControlAreaDesktop: React.FC = () => {
             <Button
               onClick={handleRemoveImage}
               style={{
-                backgroundColor: "transparent",
-                color: theme.colors.primary,
+                backgroundColor: theme.colors.red,
+                color: theme.colors.white,
                 border: "none",
-                borderRadius: "50%",
+                borderRadius: "0px",
                 width: "44px",
                 height: "44px",
                 display: "flex",
@@ -135,10 +137,10 @@ export const ControlAreaDesktop: React.FC = () => {
           <Button
             onClick={() => fileInputRef.current?.click()}
             style={{
-              backgroundColor: "transparent",
-              color: theme.colors.primary,
-              border: `1px solid ${theme.colors.primary}`,
-              borderRadius: "99px",
+              backgroundColor: theme.colors.green,
+              color: theme.colors.black,
+              border: `2px solid ${theme.colors.green}`,
+              borderRadius: "0px",
               display: "flex",
               flexDirection: "row",
               justifyContent: "center",
@@ -160,7 +162,6 @@ export const ControlAreaDesktop: React.FC = () => {
           onChange={(e) => setText(e.target.value)}
           lines={5}
           maxLength={100}
-          borderRadius={"24px"}
         />
 
         <Box display="flex" gap="1rem">
@@ -273,67 +274,75 @@ export const ControlAreaDesktop: React.FC = () => {
           onChange={setSize}
         />
 
-        <Button
-          style={{
-            backgroundColor: theme.colors.primary,
-            color: theme.colors.white,
-            border: `1px solid ${theme.colors.primary}`,
-            borderRadius: "99px",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "10px",
-            flex: 1,
-            overflow: "hidden",
-          }}
-          onClick={randomizePositions}
+        <Box
+          width={"100%"}
+          display={"flex"}
+          flexDirection={"column"}
+          gap={"10px"}
+          margin={"20px 0 0 0"}
         >
-          <PiPuzzlePieceFill size={"1.2rem"} style={{ flexShrink: 0 }} />
-          <Text
+          <Button
             style={{
-              textAlign: "center",
-              fontWeight: 700,
-              whiteSpace: "nowrap",
+              backgroundColor: theme.colors.green,
+              color: theme.colors.black,
+              border: `1px solid ${theme.colors.green}`,
+              borderRadius: "0px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "10px",
+              flex: 1,
               overflow: "hidden",
-              textOverflow: "ellipsis",
-              maxWidth: "180px",
             }}
+            onClick={randomizePositions}
           >
-            Randomizar recortes
-          </Text>
-        </Button>
-        <Button
-          style={{
-            backgroundColor: theme.colors.primary,
-            color: theme.colors.white,
-            border: `1px solid ${theme.colors.primary}`,
-            borderRadius: "99px",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "10px",
-            flex: 1,
-            overflow: "hidden",
-          }}
-          fullWidth
-          onClick={handleExport}
-        >
-          <PiExportFill size={"1.2rem"} style={{ flexShrink: 0 }} />
-          <Text
+            <PiPuzzlePieceFill size={"1.2rem"} style={{ flexShrink: 0 }} />
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: 500,
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                maxWidth: "180px",
+              }}
+            >
+              Randomizar
+            </Text>
+          </Button>
+          <Button
             style={{
-              textAlign: "center",
-              fontWeight: 700,
-              whiteSpace: "nowrap",
+              backgroundColor: theme.colors.green,
+              color: theme.colors.black,
+              border: `1px solid ${theme.colors.green}`,
+              borderRadius: "0px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "10px",
+              flex: 1,
               overflow: "hidden",
-              textOverflow: "ellipsis",
-              maxWidth: "180px",
             }}
+            fullWidth
+            onClick={handleExport}
           >
-            Exportar arte
-          </Text>
-        </Button>
+            <PiExportFill size={"1.2rem"} style={{ flexShrink: 0 }} />
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: 500,
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                maxWidth: "180px",
+              }}
+            >
+              Exportar arte
+            </Text>
+          </Button>
+        </Box>
       </Box>
     </PanelContainer>
   );

@@ -1,24 +1,25 @@
 import gsap from "gsap";
 import React, { useRef, useState } from "react";
 import {
-  PiBracketsCurly,
+  PiBracketsCurlyFill,
   PiCaretLeft,
   PiCircle,
   PiColumns,
   PiDeviceMobile,
   PiExportFill,
-  PiFrameCorners,
+  PiFrameCornersFill,
   PiImage,
-  PiLayout,
-  PiPalette,
+  PiLayoutFill,
+  PiPaletteFill,
   PiProhibit,
   PiRectangle,
   PiRows,
-  PiScissors,
-  PiShuffle,
+  PiScissorsFill,
+  PiShuffleBold,
   PiSquare,
   PiStar,
   PiTextAa,
+  PiTextAaFill,
   PiTriangle,
 } from "react-icons/pi";
 import {
@@ -145,7 +146,7 @@ export const ControlAreaMobile: React.FC = () => {
     <MainMenuRow>
       <MenuButton onClick={(e) => changeMenu("text", e)}>
         <IconCircle>
-          <PiTextAa />
+          <PiTextAaFill />
         </IconCircle>
         <Text size="0.75rem" weight="600">
           Texto
@@ -153,7 +154,7 @@ export const ControlAreaMobile: React.FC = () => {
       </MenuButton>
       <MenuButton onClick={(e) => changeMenu("colors", e)}>
         <IconCircle>
-          <PiPalette />
+          <PiPaletteFill />
         </IconCircle>
         <Text size="0.75rem" weight="600">
           Cores
@@ -161,7 +162,7 @@ export const ControlAreaMobile: React.FC = () => {
       </MenuButton>
       <MenuButton onClick={(e) => changeMenu("format", e)}>
         <IconCircle>
-          <PiFrameCorners />
+          <PiFrameCornersFill />
         </IconCircle>
         <Text size="0.75rem" weight="600">
           Formato
@@ -169,7 +170,7 @@ export const ControlAreaMobile: React.FC = () => {
       </MenuButton>
       <MenuButton onClick={(e) => changeMenu("layout", e)}>
         <IconCircle>
-          <PiLayout />
+          <PiLayoutFill />
         </IconCircle>
         <Text size="0.75rem" weight="600">
           Layout
@@ -177,7 +178,7 @@ export const ControlAreaMobile: React.FC = () => {
       </MenuButton>
       <MenuButton onClick={(e) => changeMenu("separator", e)}>
         <IconCircle>
-          <PiBracketsCurly />
+          <PiBracketsCurlyFill />
         </IconCircle>
         <Text size="0.75rem" weight="600">
           Separador
@@ -185,7 +186,7 @@ export const ControlAreaMobile: React.FC = () => {
       </MenuButton>
       <MenuButton onClick={(e) => changeMenu("cutout", e)}>
         <IconCircle>
-          <PiScissors />
+          <PiScissorsFill />
         </IconCircle>
         <Text size="0.75rem" weight="600">
           Recorte
@@ -354,7 +355,7 @@ export const ControlAreaMobile: React.FC = () => {
             onClick={(e) => changeMenu(null, e)}
             style={{
               backgroundColor: "transparent",
-              color: theme.colors.primary,
+              color: theme.colors.white,
               border: "none",
               padding: "0",
               display: "flex",
@@ -364,27 +365,29 @@ export const ControlAreaMobile: React.FC = () => {
             }}
           >
             <PiCaretLeft size="1.5rem" />
-            <Text weight="700">Voltar</Text>
+            <Text weight="700" color="white">
+              Voltar
+            </Text>
           </Button>
         ) : (
           <Text
             weight="700"
             size="1.1rem"
-            color="primary"
+            color="white"
             style={{ minWidth: "120px" }}
           >
             Ferramentas
           </Text>
         )}
 
-        <Box display="flex" gap="0.5rem" alignItems="center">
+        <Box display="flex" gap="15px" alignItems="center">
           <Button
             onClick={(e) => handleActionClick(e, randomizePositions)}
             style={{
               backgroundColor: "#f5f7ff",
-              color: theme.colors.primary,
+              color: theme.colors.blue,
               border: `1px solid #e0e5ff`,
-              borderRadius: "50%",
+              borderRadius: "0px",
               width: "40px",
               height: "40px",
               display: "flex",
@@ -393,16 +396,16 @@ export const ControlAreaMobile: React.FC = () => {
               padding: 0,
             }}
           >
-            <PiShuffle size="1.2rem" />
+            <PiShuffleBold size="1.2rem" />
           </Button>
 
           <Button
             onClick={(e) => handleActionClick(e, handleExport)}
             style={{
-              backgroundColor: theme.colors.primary,
-              color: theme.colors.white,
-              border: `1px solid ${theme.colors.primary}`,
-              borderRadius: "99px",
+              backgroundColor: theme.colors.white,
+              color: theme.colors.blue,
+              border: `2px solid ${theme.colors.white}`,
+              borderRadius: "0px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -411,7 +414,7 @@ export const ControlAreaMobile: React.FC = () => {
             }}
           >
             <PiExportFill size="1.1rem" />
-            <Text size="0.8rem" weight="700" color="white">
+            <Text size="0.8rem" weight="700" color="blue">
               Exportar
             </Text>
           </Button>

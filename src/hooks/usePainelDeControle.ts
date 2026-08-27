@@ -151,12 +151,46 @@ export const usePainelDeControle = () => {
         overlay.style.transition = "opacity 0.3s ease";
 
         overlay.innerHTML = `
-          <div id="close-ios-overlay" style="position: absolute; top: 20px; right: 20px; color: white; font-size: 40px; font-family: sans-serif; cursor: pointer; padding: 10px; line-height: 1;">&times;</div>
-          <img src="${dataUrl}" style="max-width: 85%; max-height: 70vh; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);" />
-          <p style="margin-top: 24px; color: white; font-weight: 500; font-family: sans-serif; text-align: center; max-width: 80%;">
-            Pressione e segure a imagem acima para salvar em suas Fotos.
-          </p>
-        `;
+  <div
+    id="close-ios-overlay"
+    style="
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 40px;
+      font-family: 'Google Sans Code', monospace;
+      cursor: pointer;
+      padding: 10px;
+      line-height: 1;
+    "
+  >
+    &times;
+  </div>
+
+  <img
+    src="${dataUrl}"
+    style="
+      max-width: 85%;
+      max-height: 70vh;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    "
+  />
+
+  <p
+    style="
+      margin-top: 24px;
+      color: white;
+      font-weight: 500;
+      font-family: 'Google Sans Code', monospace;
+      text-align: center;
+      max-width: 80%;
+    "
+  >
+    Pressione e segure a imagem acima para salvar em suas Fotos.
+  </p>
+`;
 
         document.body.appendChild(overlay);
 

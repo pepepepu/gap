@@ -8,6 +8,8 @@ const Container = styled.div`
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
   background-color: ${theme.colors.white};
 `;
 

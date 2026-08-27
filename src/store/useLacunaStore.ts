@@ -51,7 +51,7 @@ export const useLacunaStore = create<LacunaState>((set) => ({
   shape: "quadrado",
   quantity: 4,
   size: 40,
-  textSize: 22,
+  textSize: 16,
   bgColor: "#ececec",
   textColor: "#1f1e1e",
   previewImage: null,

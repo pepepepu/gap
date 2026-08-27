@@ -13,9 +13,9 @@ const ColorPickerInput = styled.input`
   -moz-appearance: none;
   appearance: none;
   width: 100%;
-  height: 48px;
+  height: 40px;
   border: none;
-  border-radius: 12px;
+  border-radius: 0px;
   cursor: pointer;
   background-color: transparent;
   padding: 0;
@@ -25,13 +25,13 @@ const ColorPickerInput = styled.input`
   }
 
   &::-webkit-color-swatch {
-    border: 1px solid ${({ theme }) => theme.colors.primary};
-    border-radius: 12px;
+    border: 1px solid ${({ theme }) => theme.colors.white};
+    border-radius: 0px;
   }
 
   &::-moz-color-swatch {
-    border: 1px solid ${({ theme }) => theme.colors.primary};
-    border-radius: 12px;
+    border: 1px solid ${({ theme }) => theme.colors.white};
+    border-radius: 0px;
   }
 `;
 
@@ -42,7 +42,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
 }) => {
   return (
     <Box flexDirection="column" gap="10px" display="flex" width="100%">
-      <Text color="primary" weight="700">
+      <Text color="white" weight="600" style={{ letterSpacing: "-0.7px" }}>
         {text}
       </Text>
       <ColorPickerInput

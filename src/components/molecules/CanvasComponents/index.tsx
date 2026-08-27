@@ -79,7 +79,7 @@ export const ImageSection = styled.div<ImageSectionProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.colors.blue};
   background-image: ${({ $bgImage }) =>
     $bgImage ? `url(${$bgImage})` : "none"};
   background-size: cover;
@@ -237,7 +237,7 @@ export const ScaleWrapper = styled.div<{ $w: number; $h: number }>`
 export const DrawerContainer = styled.aside`
   width: 100vw;
   height: 35dvh;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.blue};
   box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
@@ -266,20 +266,23 @@ export const DrawerBody = styled.div`
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border-radius: 10px;
+    background-color: ${({ theme }) => theme.colors.white};
+    border-radius: 00px;
   }
 `;
 
 export const MainMenuRow = styled.div`
-  display: flex;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   padding-bottom: 1rem;
+
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     display: none;
   }
+
   scrollbar-width: none;
 `;
 
@@ -291,7 +294,7 @@ export const MenuButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
   min-width: 64px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -305,11 +308,11 @@ export const MenuButton = styled.button`
 export const IconCircle = styled.div`
   width: 60px;
   height: 60px;
-  border-radius: 50%;
-  background-color: #f5f7ff;
+  border-radius: 0px;
+  background-color: ${({ theme }) => theme.colors.red};
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  border: 1px solid #e0e5ff;
+  border: 1px solid ${({ theme }) => theme.colors.red};
 `;
